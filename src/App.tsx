@@ -1,40 +1,7 @@
-import { ChangeEventHandler, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import { Gauge } from "./Gauge";
-
-type InputProps = {
-  label: string;
-  type: string;
-  value: string | number;
-  onChange: ChangeEventHandler<HTMLInputElement, HTMLInputElement>;
-};
-
-const Input = ({ label, type, value, onChange }: InputProps) => {
-  return (
-    <div
-      style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}
-    >
-      <label style={{ width: "120px" }}>{label}</label>
-      <input type={type} value={value} onChange={onChange} />
-    </div>
-  );
-};
-
-const Row = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div style={{ display: "flex", flexDirection: "row", gap: "8px" }}>
-      {children}
-    </div>
-  );
-};
-
-const Col = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-      {children}
-    </div>
-  );
-};
+import { Col, Input, Row } from "./Components";
 
 export default function App() {
   const [max, setMax] = useState(150);

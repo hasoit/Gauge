@@ -1,29 +1,6 @@
 import { useState } from "react";
 import { Ring } from "./Ring";
-
-type TextProps = {
-  content: number | string;
-  x: number;
-  y: number;
-  fontSize: number;
-  onClick?: () => void;
-};
-
-function Text({ content, x, y, fontSize, onClick }: TextProps) {
-  return (
-    <text
-      x={`${x}%`}
-      y={`${y}%`}
-      textAnchor="middle"
-      fontSize={fontSize}
-      fill="#333"
-      style={{ userSelect: "none" }}
-      onClick={onClick}
-    >
-      {content}
-    </text>
-  );
-}
+import { Text } from "./Components";
 
 type GaugeProps = {
   min: number;
