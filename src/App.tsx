@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { Gauge } from "./Gauge";
 import { Col, Input, Row } from "./Components";
+import { RPMDisplay } from "./MockData";
 
 export default function App() {
   const [max, setMax] = useState(150);
@@ -12,6 +13,7 @@ export default function App() {
   return (
     <Row>
       <Gauge
+        value={(RPMDisplay() ?? 0) % max}
         min={min}
         max={max}
         description1={description1}

@@ -1,49 +1,28 @@
-import { useState } from "react";
 import { Ring } from "./Ring";
 import { Text } from "./Components";
 
 type GaugeProps = {
+  value: number;
   min: number;
   max: number;
   description1: string;
   description2: string;
 };
 
-export function Gauge({ min, max, description1, description2 }: GaugeProps) {
+export const Gauge = ({
+  value,
+  min,
+  max,
+  description1,
+  description2
+}: GaugeProps) => {
   const maxAngle = 269;
-  const startingAngle = 136;
-  const center = { x: 195, y: 166 };
-  const [angle, setAngle] = useState(0);
-  const [dragging, setDragging] = useState(false);
-
-  const handleMouseMove = (e: React.MouseEvent<SVGSVGElement, MouseEvent>) => {
-    if (!dragging) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    const dx = mouseX - center.x;
-    const dy = mouseY - center.y;
-
-    console.log(mouseX, mouseY);
-
-    let newAngle = Math.atan2(dy, dx) * (180 / Math.PI) - startingAngle;
-    if (newAngle < 0) newAngle += 360;
-    if (newAngle > maxAngle) newAngle = maxAngle;
-    if (mouseX > 100 && mouseX < 190 && mouseY > 230) newAngle = 0;
-    setAngle(newAngle);
-  };
-
-  const calculateValue = () => Math.floor(min + (angle / maxAngle) * (max - min));
+  const angle = (value / max) * maxAngle;
 
   return (
     <svg
       width="390"
       height="332"
-      onMouseMove={handleMouseMove}
-      onMouseUp={() => setDragging(false)}
-      onMouseLeave={() => setDragging(false)}
-      onMouseDown={() => setDragging(true)}
       viewBox="0 0 390 332"
       fill="black"
     >
@@ -59,11 +38,11 @@ export function Gauge({ min, max, description1, description2 }: GaugeProps) {
         <circle cx="195" cy="166" r="70" fill="#E6EAED" />
       </g>
 
-      <Text content={calculateValue()} x={50} y={54} fontSize={32} />
+      <Text content={value} x={50} y={54} fontSize={32} />
       <Text content={min} x={16} y={86} fontSize={20} />
       <Text content={max} x={86} y={86} fontSize={20} />
       <Text content={description1} x={50} y={86} fontSize={32} />
       <Text content={description2} x={50} y={96} fontSize={32} />
     </svg>
   );
-}
+};
