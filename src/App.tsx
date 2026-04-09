@@ -1,8 +1,9 @@
 import { useState } from "react";
 import "./App.css";
-import { Gauge } from "./Gauge";
-import { Col, Input, Row } from "./Components";
-import { RPMDisplay } from "./MockData";
+import { Gauge } from "./components/Gauge";
+import { Col, Row } from "./components/Containers";
+import { RPMDisplay } from "./api/MockData";
+import { Input } from "./components/Input";
 
 export default function App() {
   const [max, setMax] = useState(150);

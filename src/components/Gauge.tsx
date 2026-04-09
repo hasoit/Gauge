@@ -1,5 +1,5 @@
 import { Ring } from "./Ring";
-import { Text } from "./Components";
+import { Text } from "./Text";
 
 type GaugeProps = {
   value: number;
@@ -20,15 +20,16 @@ export const Gauge = ({
   const angle = (value / max) * maxAngle;
 
   return (
-    <svg
-      width="390"
-      height="332"
-      viewBox="0 0 390 332"
-      fill="black"
-    >
+    <svg width="390" height="332" viewBox="0 0 390 332" fill="black">
       <Ring />
 
-      <g transform={`rotate(${angle} 195 166)`}>
+      <g
+        style={{
+          transform: `rotate(${angle}deg)`,
+          transition: "transform 0.4s ease-out",
+          transformOrigin: "50% 50%",
+        }}
+      >
         <path
           fill-rule="evenodd"
           clip-rule="evenodd"
