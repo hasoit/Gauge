@@ -5,7 +5,7 @@ export const RPMDisplay = (): number | undefined => {
   const { data } = useQuery<number>({
     queryKey: ["rpm"],
     queryFn: fetchRPM,
-    refetchInterval: 100
+    refetchInterval: 1000
   });
 
   return data;

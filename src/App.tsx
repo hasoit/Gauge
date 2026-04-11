@@ -3,7 +3,8 @@ import "./App.css";
 import { Gauge } from "./components/Gauge";
 import { Col, Row } from "./components/Containers";
 import { RPMDisplay } from "./api/MockData";
-import { Input } from "./components/Input";
+import { NumberInput } from "./components/NumberInput";
+import { TextInput } from "./components/TextInput";
 
 export default function App() {
   const [max, setMax] = useState(150);
@@ -14,7 +15,7 @@ export default function App() {
   return (
     <Row>
       <Gauge
-        value={(RPMDisplay() ?? 0) % max}
+        value={RPMDisplay() ?? 0}
         min={min}
         max={max}
         description1={description1}
@@ -22,32 +23,32 @@ export default function App() {
       />
 
       <Col>
-        <Input
-          label="max"
-          type="number"
-          value={max}
-          onChange={(e) => setMax(Number.parseInt(e.target.value))}
-        />
-
-        <Input
+        <NumberInput
           label="min"
-          type="number"
           value={min}
           onChange={(e) => setMin(Number.parseInt(e.target.value))}
+          validate={(v) => v >= 0 && v.toString().length < 8}
         />
 
-        <Input
-          label="description 1"
-          type="text"
+        <NumberInput
+          label="max"
+          value={max}
+          onChange={(e) => setMax(Number.parseInt(e.target.value))}
+          validate={(v) => v > 0  && v.toString().length < 8}
+        />
+
+        <TextInput
+          label="Description 1"
           value={description1}
           onChange={(e) => setDescription1(e.target.value)}
+          validate={(v) => v.length < 14}
         />
 
-        <Input
-          label="description 2"
-          type="text"
+        <TextInput
+          label="Description 2"
           value={description2}
           onChange={(e) => setDescription2(e.target.value)}
+          validate={(v) => v.length < 16}
         />
       </Col>
     </Row>

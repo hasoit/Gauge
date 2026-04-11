@@ -6,7 +6,7 @@ const randomInt = (a: number, b: number) =>
 export const fetchRPM = async (): Promise<number> => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      const changeAmount = 8
+      const changeAmount = 16
       const change = randomInt(-changeAmount, changeAmount);
       currentRPM = Math.max(0, currentRPM + change);
       resolve(currentRPM);

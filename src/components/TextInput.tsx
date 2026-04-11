@@ -1,26 +1,31 @@
 import React, { ChangeEventHandler, useId } from "react";
-import "./Input.css"
+import "./Input.css";
 
-type InputProps = {
+type TextInputProps = {
   label: string;
   type?: React.HTMLInputTypeAttribute;
-  value: string | number;
+  value: string;
   onChange: ChangeEventHandler<HTMLInputElement>;
-  validate?: (value: string | number) => boolean
+  validate?: (value: string) => boolean;
   placeholder?: string;
   disabled?: boolean;
 };
 
-export const Input = ({
+export const TextInput = ({
   label,
-  type = "text",
   value,
   onChange,
-  validate,
+  validate = (_) => true,
   placeholder,
-  disabled = false,
-}: InputProps) => {
+  disabled = false
+}: TextInputProps) => {
   const id = useId();
+
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const newValue = e.target.value;
+    if (!validate(newValue)) return;
+    onChange(e);
+  };
 
   return (
     <div className="input-group">
@@ -29,9 +34,9 @@ export const Input = ({
       </label>
       <input
         id={id}
-        type={type}
+        type="text"
         value={value}
-        onChange={onChange}
+        onChange={handleChange}
         placeholder={placeholder}
         disabled={disabled}
         className="input-field"

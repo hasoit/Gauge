@@ -19,6 +19,9 @@ export const Gauge = ({
   const maxAngle = 269;
   const angle = (value / max) * maxAngle;
 
+  min = isNaN(min) ? 0 : min;
+  max = isNaN(max) ? 0 : max;
+
   return (
     <svg width="390" height="332" viewBox="0 0 390 332" fill="black">
       <Ring />
@@ -27,7 +30,7 @@ export const Gauge = ({
         style={{
           transform: `rotate(${angle}deg)`,
           transition: "transform 0.4s ease-out",
-          transformOrigin: "50% 50%",
+          transformOrigin: "50% 50%"
         }}
       >
         <path
