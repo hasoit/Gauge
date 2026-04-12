@@ -1,17 +1,14 @@
-let currentRPM = 64;
+import { clamp, randomInt } from "../util";
 
-const randomInt = (min: number, max: number) =>
-  Math.floor(min + (max - min) * Math.random());
+let currentRPM = 64;
 
 export const fetchRPM = async (min: number, max: number): Promise<number> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       if (currentRPM > max) currentRPM = max;
-      const changeAmount = Math.ceil((max - min) / 4);
+      const changeAmount = Math.max(1, Math.ceil((max - min) / 4));
       const change = randomInt(-changeAmount, changeAmount);
-      const newrpm = currentRPM + change;
-      if (newrpm >= min && newrpm <= max)
-        currentRPM = Math.max(0, currentRPM + change);
+      currentRPM = clamp(currentRPM + change, min, max);
       resolve(currentRPM);
     }, 300);
   });

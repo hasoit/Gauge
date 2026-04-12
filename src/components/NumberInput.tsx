@@ -23,7 +23,7 @@ export const NumberInput = ({
   const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     if (e.target.value === "") onChange(e);
     const newValue = Number.parseInt(e.target.value);
-    if ( !validate(newValue)) return;
+    if (!validate(newValue)) return;
     onChange(e);
   };
 
