@@ -20,6 +20,8 @@ export const Gauge = ({
   min = isNaN(min) ? 0 : min;
   max = isNaN(max) ? 1 : max;
 
+  if (value > max) value = max;
+
   const maxAngle = 269;
   const angle = (value / max) * maxAngle;
 
