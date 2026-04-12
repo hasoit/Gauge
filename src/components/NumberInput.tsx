@@ -1,4 +1,4 @@
-import { ChangeEventHandler, useId } from "react";
+import { type ChangeEventHandler, useId } from "react";
 import "./Input.css";
 
 type NumberInputProps = {
@@ -14,7 +14,7 @@ export const NumberInput = ({
   label,
   value,
   onChange,
-  validate = (_) => true,
+  validate = () => true,
   placeholder,
   disabled = false
 }: NumberInputProps) => {
@@ -37,7 +37,6 @@ export const NumberInput = ({
         type="number"
         value={value}
         onChange={handleChange}
-        // onSubmit={handleSubmit}
         placeholder={placeholder}
         disabled={disabled}
         className="input-field"

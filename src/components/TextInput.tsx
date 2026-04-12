@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, useId } from "react";
+import React, { type ChangeEventHandler, useId } from "react";
 import "./Input.css";
 
 type TextInputProps = {
@@ -15,7 +15,7 @@ export const TextInput = ({
   label,
   value,
   onChange,
-  validate = (_) => true,
+  validate = () => true,
   placeholder,
   disabled = false
 }: TextInputProps) => {
