@@ -48,7 +48,7 @@ export default function App() {
           label="Description 2"
           value={description2}
           onChange={(e) => setDescription2(e.target.value)}
-          validate={(v) => v.length < 16}
+          validate={(v) => v.length < 32}
         />
       </Col>
     </Row>
