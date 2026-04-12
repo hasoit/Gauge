@@ -15,7 +15,7 @@ export default function App() {
   return (
     <Row>
       <Gauge
-        value={RPMDisplay() ?? 0}
+        value={RPMDisplay(min, max) ?? 0}
         min={min}
         max={max}
         description1={description1}

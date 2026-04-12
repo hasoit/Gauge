@@ -1,14 +1,17 @@
 let currentRPM = 64;
 
-const randomInt = (a: number, b: number) =>
-  Math.floor(a + (b - a) * Math.random());
+const randomInt = (min: number, max: number) =>
+  Math.floor(min + (max - min) * Math.random());
 
-export const fetchRPM = async (): Promise<number> => {
+export const fetchRPM = async (min: number, max: number): Promise<number> => {
   return new Promise((resolve) => {
     setTimeout(() => {
-      const changeAmount = 16
+      if (currentRPM > max) currentRPM = max;
+      const changeAmount = Math.floor((max - min) / 4);
       const change = randomInt(-changeAmount, changeAmount);
-      currentRPM = Math.max(0, currentRPM + change);
+      const newrpm = currentRPM + change;
+      if (newrpm >= min && newrpm <= max)
+        currentRPM = Math.max(0, currentRPM + change);
       resolve(currentRPM);
     }, 300);
   });
