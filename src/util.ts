@@ -1,4 +1,5 @@
-export const fixNaN = (val: number) => (isNaN(val) ? 0 : val);
+export const fixNaN = (value: number, fallback: number = 0) =>
+  isNaN(value) ? fallback : value;
 
 export const randomInt = (min: number, max: number) =>
   Math.floor(min + (max - min) * Math.random());
