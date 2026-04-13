@@ -11,7 +11,9 @@ export default function App() {
   const [max, setMax] = useState(150);
   const [min, setMin] = useState(0);
   const [refreshRateMS, setRefreshRateMS] = useState(100);
-  const [scale, setScale] = useState(1.0);
+  const [scale, setScale] = useState(1);
+  const [ScaleX, setScaleX] = useState(1);
+  const [scaleY, setScaleY] = useState(1);
   const [description1, setDescription1] = useState("Rpm");
   const [description2, setDescription2] = useState("Propeller");
 
@@ -24,6 +26,8 @@ export default function App() {
         description1={description1}
         description2={description2}
         scale={scale}
+        xScale={ScaleX}
+        yScale={scaleY}
       />
 
       <Col>
@@ -54,9 +58,7 @@ export default function App() {
           onEnterKey={setDescription2}
           validate={(v) => v.length < 32}
         />
-      </Col>
 
-      <Col>
         <NumberInput
           label="Refresh rate (ms / update)"
           initialValue={refreshRateMS}
@@ -68,6 +70,20 @@ export default function App() {
           label="Scale"
           initialValue={scale}
           onEnterKey={setScale}
+          validate={(v) => v > 0 && v.toString().length < 8}
+        />
+
+        <FloatInput
+          label="X Scale"
+          initialValue={ScaleX}
+          onEnterKey={setScaleX}
+          validate={(v) => v > 0 && v.toString().length < 8}
+        />
+
+        <FloatInput
+          label="Y Scale"
+          initialValue={scaleY}
+          onEnterKey={setScaleY}
           validate={(v) => v > 0 && v.toString().length < 8}
         />
       </Col>
