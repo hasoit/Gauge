@@ -24,7 +24,7 @@ export const FloatInput = ({
   return (
     <div className="input-group">
       <label htmlFor={id} className="input-label">
-        {label}
+        {label} = {initialValue}
       </label>
       <input
         id={id}
