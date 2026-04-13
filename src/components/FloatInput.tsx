@@ -1,10 +1,10 @@
-import { type ChangeEventHandler, useId } from "react";
+import { useId, useState } from "react";
 import "./Input.css";
 
 type FloatInputProps = {
   label: string;
-  value: number;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  initialValue: number;
+  onEnterKey: (value: number) => void;
   validate?: (value: number) => boolean;
   placeholder?: string;
   disabled?: boolean;
@@ -12,20 +12,14 @@ type FloatInputProps = {
 
 export const FloatInput = ({
   label,
-  value,
-  onChange,
+  initialValue,
+  onEnterKey,
   validate = () => true,
   placeholder,
   disabled = false
 }: FloatInputProps) => {
   const id = useId();
-
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    if (e.target.value === "") onChange(e);
-    const newValue = Number.parseFloat(e.target.value);
-    if (!validate(newValue)) return;
-    onChange(e);
-  };
+  const [value, setValue] = useState(initialValue);
 
   return (
     <div className="input-group">
@@ -36,10 +30,14 @@ export const FloatInput = ({
         id={id}
         type="number"
         value={value}
-        onChange={handleChange}
+        onChange={(e) => setValue(Number.parseFloat(e.target.value))}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !isNaN(value) && validate(value))
+            onEnterKey(value);
+        }}
         placeholder={placeholder}
         disabled={disabled}
-        className="input-field"
+        className={`input-field ${validate(value) ? "" : "bad-value"}`}
       />
     </div>
   );

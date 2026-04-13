@@ -1,11 +1,10 @@
-import React, { type ChangeEventHandler, useId } from "react";
+import { useId, useState } from "react";
 import "./Input.css";
 
 type TextInputProps = {
   label: string;
-  type?: React.HTMLInputTypeAttribute;
-  value: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  initialValue: string;
+  onEnterKey: (v: string) => void;
   validate?: (value: string) => boolean;
   placeholder?: string;
   disabled?: boolean;
@@ -13,19 +12,14 @@ type TextInputProps = {
 
 export const TextInput = ({
   label,
-  value,
-  onChange,
+  initialValue,
+  onEnterKey,
   validate = () => true,
   placeholder,
   disabled = false
 }: TextInputProps) => {
   const id = useId();
-
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    const newValue = e.target.value;
-    if (!validate(newValue)) return;
-    onChange(e);
-  };
+  const [value, setValue] = useState(initialValue);
 
   return (
     <div className="input-group">
@@ -36,10 +30,13 @@ export const TextInput = ({
         id={id}
         type="text"
         value={value}
-        onChange={handleChange}
+        onChange={(e) => setValue(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && validate(value)) onEnterKey(value);
+        }}
         placeholder={placeholder}
         disabled={disabled}
-        className="input-field"
+        className={`input-field ${validate(value) ? "" : "bad-value"}`}
       />
     </div>
   );

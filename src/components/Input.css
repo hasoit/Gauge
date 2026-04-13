@@ -29,3 +29,7 @@
   background-color: #f5f5f5;
   cursor: not-allowed;
 }
+
+.bad-value {
+  background-color: red;
+}

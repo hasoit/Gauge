@@ -9,6 +9,7 @@ type GaugeProps = {
   max: number;
   description1: string;
   description2: string;
+  scale: number;
 };
 
 export const Gauge = ({
@@ -16,7 +17,8 @@ export const Gauge = ({
   min,
   max,
   description1,
-  description2
+  description2,
+  scale
 }: GaugeProps) => {
   const MAX_ANGLE = 269;
 
@@ -28,7 +30,12 @@ export const Gauge = ({
   const angle = clamp(((value - min) / (max - min)) * MAX_ANGLE, 0, MAX_ANGLE);
 
   return (
-    <svg width="390" height="332" viewBox="0 0 390 332" fill="black">
+    <svg
+      width={scale * 390}
+      height={scale * 332}
+      viewBox="0 0 390 332"
+      fill="black"
+    >
       <Ring />
       <Dial angle={angle} />
       <Text content={value} x={50} y={54} fontSize={32} />

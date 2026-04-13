@@ -1,10 +1,10 @@
-import { type ChangeEventHandler, useId } from "react";
+import { useId, useState } from "react";
 import "./Input.css";
 
 type NumberInputProps = {
   label: string;
-  value: number;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  initialValue: number;
+  onEnterKey: (v: number) => void;
   validate?: (value: number) => boolean;
   placeholder?: string;
   disabled?: boolean;
@@ -12,20 +12,14 @@ type NumberInputProps = {
 
 export const NumberInput = ({
   label,
-  value,
-  onChange,
+  initialValue,
+  onEnterKey,
   validate = () => true,
   placeholder,
   disabled = false
 }: NumberInputProps) => {
   const id = useId();
-
-  const handleChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    if (e.target.value === "") onChange(e);
-    const newValue = Number.parseInt(e.target.value);
-    if (!validate(newValue)) return;
-    onChange(e);
-  };
+  const [value, setValue] = useState(initialValue);
 
   return (
     <div className="input-group">
@@ -36,10 +30,14 @@ export const NumberInput = ({
         id={id}
         type="number"
         value={value}
-        onChange={handleChange}
+        onChange={(e) => setValue(Number.parseInt(e.target.value))}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" && !isNaN(value) && validate(value))
+            onEnterKey(value);
+        }}
         placeholder={placeholder}
         disabled={disabled}
-        className="input-field"
+        className={`input-field ${validate(value) ? "" : "bad-value"}`}
       />
     </div>
   );
